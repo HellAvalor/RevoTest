@@ -3,14 +3,15 @@ package com.andrewkaraman.rtest
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
-import com.andrewkaraman.rtest.net.initHandler
+import com.andrewkaraman.rtest.net.loadLots
 import com.andrewkaraman.rtest.ui.main.SectionsPagerAdapter
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
+import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {
 
     //TODO Add tests
+    private var job: Deferred<Unit>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,10 +21,16 @@ class MainActivity : AppCompatActivity() {
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = findViewById(R.id.tabs)
         tabs.setupWithViewPager(viewPager)
-        val fab: FloatingActionButton = findViewById(R.id.fab)
+        job = GlobalScope.async { loadLots() }
+    }
 
-        fab.setOnClickListener { view ->
-            initHandler()
-        }
+    override fun onResume() {
+        super.onResume()
+        job = GlobalScope.async { loadLots() }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        job!!.cancel()
     }
 }
