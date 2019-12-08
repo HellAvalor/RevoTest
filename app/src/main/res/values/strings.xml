@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">RevoTest</string>
+    <string name="tab_text_1">All rates</string>
+    <string name="tab_text_2">Converter</string>
+</resources>
