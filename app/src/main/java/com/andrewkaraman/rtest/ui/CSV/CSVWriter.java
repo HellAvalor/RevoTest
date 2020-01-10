@@ -16,7 +16,7 @@ public class CSVWriter {
     }
 
     public void write(String... columns) throws IOException {
-        bufferedWriter.write(CSVConverter.getFormattedString(columns));
+        bufferedWriter.write(CSVParser.getFormattedString(columns));
     }
 
     public void write(String line) throws IOException {

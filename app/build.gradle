@@ -25,6 +25,14 @@ android {
             includeAndroidResources = true
         }
     }
+    sourceSets {
+        test {
+            resources.srcDirs += ['src/test/resources']
+        }
+        androidTest {
+            resources.srcDirs += ['src/androidTest/resources']
+        }
+    }
 }
 
 dependencies {

@@ -18,7 +18,7 @@ public class CSVReader {
         try {
             String line = _bufferedReader.readLine();
             if (line != null) {
-                splittedLine = CSVConverter.splitString(line);
+                splittedLine = CSVParser.splitString(line);
             }
         } catch (IOException e) {
             e.printStackTrace();

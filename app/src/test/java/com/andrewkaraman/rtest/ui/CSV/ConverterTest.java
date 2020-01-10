@@ -1,7 +1,5 @@
 package com.andrewkaraman.rtest.ui.CSV;
 
-import com.andrewkaraman.rtest.ui.CSV.CSVConverter;
-
 import org.junit.Test;
 
 import org.junit.Assert;
@@ -17,14 +15,14 @@ public class ConverterTest {
     @Test
     public void stringsToLineTest() {
         for (int i = 0; i < SEPARATED_ARRAY.length; i++) {
-            Assert.assertEquals(STRINGS[i], CSVConverter.getFormattedString(SEPARATED_ARRAY[i]));
+            Assert.assertEquals(STRINGS[i], CSVParser.getFormattedString(SEPARATED_ARRAY[i]));
         }
     }
 
     @Test
     public void lineToArrayTest() {
         for (int i = 0; i < SEPARATED_ARRAY.length; i++) {
-            assertArrayEquals(SEPARATED_ARRAY[i], CSVConverter.splitString(STRINGS[i]));
+            assertArrayEquals(SEPARATED_ARRAY[i], CSVParser.splitString(STRINGS[i]));
         }
     }
 }
