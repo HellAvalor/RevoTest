@@ -7,16 +7,18 @@ import java.io.IOException;
 
 public class CSVReader {
 
-    private BufferedReader _bufferedReader = null;
+    private BufferedReader bufferedReader = null;
+    private boolean isStreamOpen;
 
     public void open(String fileName) throws FileNotFoundException {
-        _bufferedReader = new BufferedReader(new FileReader(fileName));
+        bufferedReader = new BufferedReader(new FileReader(fileName));
+        isStreamOpen = true;
     }
 
     public String[] read() {
         String[] splittedLine = null;
         try {
-            String line = _bufferedReader.readLine();
+            String line = bufferedReader.readLine();
             if (line != null) {
                 splittedLine = CSVParser.splitString(line);
             }
@@ -29,7 +31,7 @@ public class CSVReader {
     public String readLine() {
         String line = null;
         try {
-            line = _bufferedReader.readLine();
+            line = bufferedReader.readLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -37,12 +39,22 @@ public class CSVReader {
     }
 
     public void close() {
-        if (_bufferedReader != null) {
+        if (bufferedReader != null) {
             try {
-                _bufferedReader.close();
+                bufferedReader.close();
+                isStreamOpen = false;
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
+
+    public BufferedReader getBufferReader() {
+        return bufferedReader;
+    }
+
+    public boolean isStreamOpen(){
+        return isStreamOpen;
+    }
+
 }
