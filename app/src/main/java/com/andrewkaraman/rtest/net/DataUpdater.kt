@@ -1,7 +1,5 @@
 package com.andrewkaraman.rtest.net
 
-import android.os.Handler
-import android.os.Looper
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.andrewkaraman.rtest.model.RevoCurrency
@@ -23,7 +21,6 @@ fun addAdapter(adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>) {
     adapterList.add(adapter)
 }
 
-
 fun startUpdateData() {
     val mApiService: APIService = RestClient.client.create(APIService::class.java)
     val call = mApiService.fetchQuestions(currencyName)
@@ -31,11 +28,11 @@ fun startUpdateData() {
 
         override fun onResponse(call: Call<RevoModel>, response: Response<RevoModel>) {
             Timber.d("test")
-            val questions = response.body()
-            if (questions != null) {
+            val revoModel = response.body()
+            revoModel?.let {
                 val newCurrencyList: MutableList<RevoCurrency> = ArrayList()
-                newCurrencyList.add(RevoCurrency(questions.base, 1.0))
-                questions.rates.forEach { (K, V) ->
+                newCurrencyList.add(RevoCurrency(revoModel.base, 1.0))
+                revoModel.rates.forEach { (K, V) ->
                     newCurrencyList.add(RevoCurrency(K, V))
                 }
                 val diffResult =
@@ -60,7 +57,7 @@ fun startUpdateData() {
 
 suspend fun loadLots() {
     coroutineScope {
-        while(true) {
+        while (true) {
             delay(1_000)
             launch { startUpdateData() }
         }

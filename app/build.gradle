@@ -20,6 +20,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
 }
 
 dependencies {
@@ -42,4 +47,12 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:28.0.0'
     implementation "androidx.recyclerview:recyclerview:1.1.0"
 
+}
+
+
+dependencies {
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestUtil 'androidx.test:orchestrator:1.2.0'
+    testImplementation 'org.robolectric:robolectric:4.3'
+    androidTestImplementation "org.mockito:mockito-core:2.23.+"
 }

@@ -1,4 +1,4 @@
-package com.andrewkaraman.rtest.ui.main
+package com.andrewkaraman.rtest.ui.CSV.main
 
 import android.view.LayoutInflater
 import android.view.View
